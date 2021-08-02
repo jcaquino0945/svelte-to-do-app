@@ -4,5 +4,5 @@ node_modules
 /package
 
 /.svelte
-/build
+
 /functions
