@@ -1,9 +1,5 @@
 <script lang="ts">
-  import { theme } from './store'
-  import ToggleTheme from '$lib/ToggleTheme.svelte'
-  import Counter from '$lib/Counter.svelte'
-  import Timer from '$lib/Timer.svelte'
-  import Navbar from '../lib/Navbar.svelte'
+  import Tasks from '../lib/Tasks.svelte'
 </script>
 
 <svelte:head>
@@ -38,7 +34,6 @@
 </svelte:head>
 
 <!-- write html code here-->
-<Navbar></Navbar>
 
 <main class="h-auto w-full">
   <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 z-50 right-4 bottom-5 text-white fixed bg-blue-500 rounded-full bg-clip-content bg-cover add-icon opacity-70" viewBox="0 0 20 20" fill="currentColor">
@@ -52,6 +47,8 @@
     </div>
 </div>
 </div>
+
+<Tasks></Tasks>
 </main>
 
 
@@ -74,5 +71,12 @@
 }
 .section-1-body p {
     font-family: 'Abel', sans-serif;
+}
+svg.add-icon{
+    transition: .1s all ease-in-out;
+}
+svg.add-icon:hover{
+    background-color: #3b83f6;
+    opacity: 1;
 }
 </style>
