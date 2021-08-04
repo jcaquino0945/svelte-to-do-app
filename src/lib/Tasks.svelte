@@ -1,13 +1,17 @@
 <script lang="ts">
-    let tasks = [
-        { id: '0', title: 'Feed The Dogs!', description: 'Remember to feed phairo and phaira!', status: 'Pending'},
-        { id: '1', title: 'Study UI/UX Design Best Practices', description: 'Catch up on saved ui/ux videos on coursera', status: 'Pending'},
-        { id: '2', title: 'Meeting With Client', description: 'E-commerce App Test', status: 'Completed'},
-    ];
+    import { onMount } from 'svelte';
+    import { tasks } from '../routes/store';
+    let myTasks = []
+
+    onMount(async () => {
+		tasks.subscribe(val => {
+    myTasks = val; taskSort(); 
+	});
+  })
 
     taskSort();
     function taskSort() {
-        tasks.sort((a,b) => (a.status > b.status) ? 1 : ((b.status > a.status) ? -1 : 0))
+        myTasks.sort((a,b) => (a.status > b.status) ? 1 : ((b.status > a.status) ? -1 : 0))
     }
 
     function checkTask(item: any) {
@@ -17,7 +21,7 @@
         description: item.description,
         status: 'Completed'
         }
-        return tasks.splice(tasks.indexOf(item), 1), tasks.push(updatedTask), tasks = tasks, taskSort();
+        return myTasks.splice(myTasks.indexOf(item), 1), myTasks.push(updatedTask), myTasks = myTasks, taskSort();
     }
 
     function unCheckTask(item: any) {
@@ -27,11 +31,11 @@
         description: item.description,
         status: 'Pending'
         }
-        return tasks.splice(tasks.indexOf(item), 1), tasks.push(updatedTask), tasks = tasks, taskSort();
+        return myTasks.splice(myTasks.indexOf(item), 1), myTasks.push(updatedTask), myTasks = myTasks, taskSort();
     }
 
     function deleteTask(item:any) {
-    return tasks.splice(tasks.indexOf(item), 1), tasks = tasks, taskSort();
+    return myTasks.splice(myTasks.indexOf(item), 1), myTasks = myTasks, taskSort();
     }
 
     
@@ -39,7 +43,7 @@
 </script>
 
 <div class="section-2 h-auto">
-    {#each tasks as task}
+    {#each myTasks as task}
     <div class="task-container">
         <div class="task-container-left">
             {#if task.status == 'Pending'}<!-- unchecked -->
