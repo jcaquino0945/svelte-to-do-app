@@ -1,6 +1,12 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { tasks } from '../routes/store';
+    import { afterUpdate } from 'svelte';
+
+	afterUpdate(() => {
+		console.log('the component just updated');
+	});
+    
     let myTasks = []
 
     onMount(async () => {
@@ -9,7 +15,7 @@
 	});
   })
 
-    taskSort();
+
     function taskSort() {
         myTasks.sort((a,b) => (a.status > b.status) ? 1 : ((b.status > a.status) ? -1 : 0))
     }
