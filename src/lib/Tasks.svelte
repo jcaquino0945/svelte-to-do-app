@@ -1,21 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { tasks } from '../routes/store';
     import { afterUpdate } from 'svelte';
 
-	afterUpdate(() => {
-		console.log('the component just updated');
-	});
+    let myTasks;
     
-    let myTasks = []
-
-    onMount(async () => {
-		tasks.subscribe(val => {
-    myTasks = val; taskSort(); 
-	});
-  })
-
-
     function taskSort() {
         myTasks.sort((a,b) => (a.status > b.status) ? 1 : ((b.status > a.status) ? -1 : 0))
     }
@@ -49,7 +37,7 @@
 </script>
 
 <div class="section-2 h-auto">
-    {#each myTasks as task}
+    {#each {myTasks} as task}
     <div class="task-container">
         <div class="task-container-left">
             {#if task.status == 'Pending'}<!-- unchecked -->
